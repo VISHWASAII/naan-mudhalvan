@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>naan mudhalvan</title>
+    <title>Login Page</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -12,7 +12,7 @@
     </header>
 
     <div class="login-container">
-        <h2>Naan mudhalvan Login</h2>
+        <h2>Login</h2>
         <form>
             <input type="text" placeholder="Username" required>
             <input type="password" placeholder="Password" required>
@@ -22,7 +22,18 @@
 
     <script>
         function redirectToInstagram() {
-            window.location.href = "https://www.instagram.com";
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            
+            if (/android/i.test(userAgent)) {
+                // Redirect for Android
+                window.location.href = "intent://instagram.com/#Intent;package=com.instagram.android;scheme=https;end";
+            } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                // Redirect for iOS
+                window.location.href = "instagram://user?username=instagram";
+            } else {
+                // Fallback to web
+                window.location.href = "https://www.instagram.com";
+            }
         }
     </script>
 </body>
